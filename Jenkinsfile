@@ -1,12 +1,32 @@
 pipeline {
     agent any
     
-    environment {
-        SONARQUBE = 'SonarCloud'  // Nombre del servidor SonarQube configurado en Jenkins
-        SONAR_TOKEN = credentials('SONAR_TOKEN')  // Token de SonarCloud como credencial
-        PROJECT_KEY = 'AngelCastillaSandoval_vg-ms-report-workshop-service'  // Nombre corregido del proyecto en SonarCloud
-        SONAR_ORGANIZATION = 'angelcastillasandoval'  // Organización en SonarCloud
-    }
+   environment {
+    // SonarCloud Configuration
+    SONARQUBE = 'SonarCloud'
+    SONAR_TOKEN = credentials('SONAR_TOKEN')
+    PROJECT_KEY = 'AngelCastillaSandoval_vg-ms-report-workshop-service'
+    SONAR_ORGANIZATION = 'angelcastillasandoval'
+
+    // Database Configuration
+    DB_URL = credentials('DB_URL')                   // r2dbc:postgresql://...
+    DB_USERNAME = credentials('DB_USERNAME')         // postgres.mpuxwtto...
+    DB_PASSWORD = credentials('DB_PASSWORD')         // 72G8R7jB#...
+
+    // Kafka Configuration
+    BOOTSTRAP_SERVER = credentials('BOOTSTRAP_SERVER')   // pkc-921jm...
+    KAFKA_USERNAME = credentials('KAFKA_USERNAME')       // 53QBHPHG...
+    KAFKA_PASSWORD = credentials('KAFKA_PASSWORD')       // tXwcS2Hk...
+
+    // Supabase Configuration
+    SUPABASE_PROJECT_URL = credentials('SUPABASE_PROJECT_URL')   // https://...
+    SUPABASE_API_KEY = credentials('SUPABASE_API_KEY')           // eyJh...
+    SUPABASE_BUCKET = 'prs1'                                     // puede ir como texto plano si no es sensible
+    SUPABASE_FOLDER = 'reports'                                  // igual
+
+    // Application Port
+    PORT = '8086' // Generalmente no es secreto, puedes dejarlo fijo
+}
     
     tools {
         maven 'Maven 3.8.1'  // Maven configurado en Jenkins
