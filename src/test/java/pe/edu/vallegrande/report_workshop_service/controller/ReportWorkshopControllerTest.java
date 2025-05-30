@@ -65,7 +65,7 @@ class ReportWorkshopControllerTest {
 
         // Realiza la petición POST y verifica los campos clave en la respuesta
         webTestClient.post()
-                .uri("/api/reports")
+                .uri("/api/reports-workshop")
                 .bodyValue(dto)
                 .exchange()
                 .expectStatus().isCreated()
@@ -105,12 +105,12 @@ class ReportWorkshopControllerTest {
 
         // Realiza la petición PUT y verifica que la descripción y nombre del taller hayan sido actualizados
         webTestClient.put()
-                .uri("/api/reports/1")
+                .uri("/api/reports-workshop/1")
                 .bodyValue(updatedDto)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
-                .jsonPath("$.report.description").isEqualTo("https://supabase.com/reports/html/abril-junio.html")
+                .jsonPath("$.report.descriptionUrl").isEqualTo("https://supabase.com/reports/html/abril-junio.html")
                 .jsonPath("$.workshops[0].workshopName").isEqualTo("Taller actualizado");
     }
 
@@ -125,7 +125,7 @@ class ReportWorkshopControllerTest {
 
         // Realiza la petición PUT y espera un estado 204
         webTestClient.put()
-                .uri("/api/reports/restore/1")
+                .uri("/api/reports-workshop/restore/1")
                 .exchange()
                 .expectStatus().isNoContent();
     }
